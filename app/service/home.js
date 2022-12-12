@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 16:01:52
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-12 16:05:43
+ * @LastEditTime: 2022-12-12 16:20:26
  * @FilePath: /ChargeAccount/app/service/home.js
  * @Description:
  *
@@ -13,13 +13,6 @@
 const Service = require('egg').Service;
 
 class HomeService extends Service {
-  // async user() {
-  //   // 假设从数据库获取用户信息
-  //   return {
-  //     name: '嘎子',
-  //     slogen: '网络的世界太虚伪，你把握不住'
-  //   }
-  // }
   // 从数据库中获取用户信息
   async user() {
     const { app } = this;

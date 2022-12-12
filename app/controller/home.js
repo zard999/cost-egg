@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-12 16:07:06
+ * @LastEditTime: 2022-12-12 16:43:21
  * @FilePath: /ChargeAccount/app/controller/home.js
  * @Description:
  *
@@ -17,7 +17,7 @@ class HomeController extends Controller {
   async user() {
     const { ctx } = this;
     const res = await ctx.service.home.user();
-    console.log('ctx', res);
+    console.log('user', res);
     ctx.body = res;
   }
   // 向数据库中添加用户信息
