@@ -2,11 +2,11 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-07 17:16:32
+ * @LastEditTime: 2022-12-12 16:06:40
  * @FilePath: /ChargeAccount/config/plugin.js
- * @Description: 
- * 
- * Copyright (c) 2022 by 穿越, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2022 by 穿越, All Rights Reserved.
  */
 'use strict';
 
@@ -22,6 +22,6 @@ module.exports = {
   },
   mysql: {
     enable: true,
-    package: 'egg-mysql'
-  }
+    package: 'egg-mysql',
+  },
 };

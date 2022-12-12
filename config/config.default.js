@@ -2,11 +2,11 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-09 11:37:25
+ * @LastEditTime: 2022-12-12 16:06:12
  * @FilePath: /ChargeAccount/config/config.default.js
  * @Description: config配置文件
- * 
- * Copyright (c) 2022 by 穿越, All Rights Reserved. 
+ *
+ * Copyright (c) 2022 by 穿越, All Rights Reserved.
  */
 /* eslint valid-jsdoc: "off" */
 
@@ -33,16 +33,16 @@ module.exports = appInfo => {
       port: '3306',
       // 用户名
       user: 'root',
-      // 密码
+      // 密码[]
       password: '111111',
       // 数据库名
-      database: 'test'
+      database: 'test',
     },
     // 是否加载到 app 上，默认开启
     app: true,
     // 是否加载到 agent 上，默认关闭
-    agent: false
-  }
+    agent: false,
+  };
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1670397601241_4494';
@@ -59,17 +59,17 @@ module.exports = appInfo => {
   config.security = {
     csrf: {
       enable: false,
-      ignoreJSON: true
+      ignoreJSON: true,
     },
-    domainWhiteList: ['*'] // 配置白名单
-  }
+    domainWhiteList: [ '*' ], // 配置白名单
+  };
 
   // 模版(将view文件夹下的.html后缀的文件识别为.ejs)
   config.view = {
     mapping: {
-      '.html': 'ejs' // 左边写成.html后缀，会自动渲染.html文件
-    }
-  }
+      '.html': 'ejs', // 左边写成.html后缀，会自动渲染.html文件
+    },
+  };
 
   return {
     ...config,
