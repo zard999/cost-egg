@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-12 16:06:12
+ * @LastEditTime: 2022-12-12 18:19:33
  * @FilePath: /ChargeAccount/config/config.default.js
  * @Description: config配置文件
  *
@@ -28,13 +28,13 @@ module.exports = appInfo => {
     // 单数据库信息配置
     client: {
       // host
-      host: 'localhost',
+      host: '42.192.151.130',
       // 端口号
       port: '3306',
       // 用户名
       user: 'root',
       // 密码[]
-      password: '111111',
+      password: 'xue19991202',
       // 数据库名
       database: 'test',
     },

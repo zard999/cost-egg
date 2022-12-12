@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-12 16:37:37
+ * @LastEditTime: 2022-12-12 18:25:11
  * @FilePath: /ChargeAccount/test/app/controller/home.test.js
  * @Description: home测试用例
  *
@@ -37,14 +37,14 @@ describe('test/app/controller/home.test.js', () => {
   it('should POST /editUser', async () => {
     return app.httpRequest()
       .post('/editUser')
-      .send({ id: 4, name: 'xqh' })
+      .send({ id: 2, name: 'xqh' })
       .expect(200);
   });
   // 删除用户信息
   it('shourld POST /deleteUser', async () => {
     return app.httpRequest()
       .post('/deleteUser')
-      .send({ id: 5 })
+      .send({ id: 2 })
       .expect(200);
   });
 
