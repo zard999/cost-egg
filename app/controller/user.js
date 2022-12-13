@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 15:11:44
+ * @LastEditTime: 2022-12-13 15:59:44
  * @FilePath: /ChargeAccount/app/controller/user.js
  * @Description: user Controller
  *
@@ -118,6 +118,35 @@ class UserController extends Controller {
       ctx.body = {
         code: 500,
         msg: '登录失败',
+        data: null,
+      };
+    }
+  }
+
+  // 获取用户信息
+  async getUserInfo() {
+    const { ctx, app } = this;
+    const token = ctx.request.header.authorization;
+    // 通过app.jwt.verify方法和app.config.secret解密token
+    const decode = app.jwt.verify(token, app.config.jwt.secret);
+    try {
+      const userInfo = await ctx.service.user.getUserInfo(decode.username);
+      if (userInfo && userInfo.id) {
+        ctx.body = {
+          code: 200,
+          msg: '请求成功',
+          data: {
+            id: userInfo.id,
+            username: userInfo.username,
+            signature: userInfo.signature,
+            avatar: userInfo.avatar,
+          },
+        };
+      }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        msg: '获取用户信息失败',
         data: null,
       };
     }
