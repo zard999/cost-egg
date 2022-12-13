@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 11:18:41
+ * @LastEditTime: 2022-12-13 14:49:36
  * @FilePath: /ChargeAccount/app/controller/user.js
  * @Description: user Controller
  *
@@ -29,12 +29,14 @@ class UserController extends Controller {
     }
     try {
       const userInfo = await ctx.service.user.getUserInfo(username); // 获取用户信息
+      console.log('userInfo', userInfo, userInfo.id);
       if (userInfo && userInfo.id) {
         ctx.body = {
           code: 500,
           msg: '用户名已存在，请重新注册',
           data: null,
         };
+        return;
       }
       // 向数据库中插入注册数据
       const res = await ctx.service.user.register({
