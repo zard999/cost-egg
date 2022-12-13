@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 15:03:18
+ * @LastEditTime: 2022-12-13 17:06:33
  * @FilePath: /ChargeAccount/config/plugin.js
  * @Description:
  *
@@ -27,5 +27,9 @@ module.exports = {
   jwt: {
     enable: true,
     package: 'egg-jwt',
+  },
+  cors: {
+    enable: true,
+    package: 'egg-cors',
   },
 };

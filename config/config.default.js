@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 15:03:59
+ * @LastEditTime: 2022-12-13 17:29:37
  * @FilePath: /ChargeAccount/config/config.default.js
  * @Description: config配置文件
  *
@@ -48,6 +48,17 @@ module.exports = appInfo => {
     secret: 'Zyh',
   };
 
+  config.cors = {
+    origin: '*', // 允许所有跨域访问
+    credentials: true, // 允许跨域携带cookie
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+  };
+
+  // 设置文件模式 file 和 strem
+  config.multipart = {
+    mode: 'file',
+  };
+
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1670397601241_4494';
 
@@ -57,6 +68,7 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+    uploadDir: 'app/public/upload',
   };
 
   // 配置白名单：解决安全威胁csrf的防范
