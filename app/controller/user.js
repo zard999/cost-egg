@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 15:59:44
+ * @LastEditTime: 2022-12-13 16:34:26
  * @FilePath: /ChargeAccount/app/controller/user.js
  * @Description: user Controller
  *
@@ -129,6 +129,7 @@ class UserController extends Controller {
     const token = ctx.request.header.authorization;
     // 通过app.jwt.verify方法和app.config.secret解密token
     const decode = app.jwt.verify(token, app.config.jwt.secret);
+    if (!decode) return;
     try {
       const userInfo = await ctx.service.user.getUserInfo(decode.username);
       if (userInfo && userInfo.id) {
@@ -147,6 +148,43 @@ class UserController extends Controller {
       ctx.body = {
         code: 500,
         msg: '获取用户信息失败',
+        data: null,
+      };
+    }
+  }
+
+  // 修改用户信息
+  async editUserInfo() {
+    const { ctx, app } = this;
+    const { signature = '' } = ctx.request.body;
+    try {
+      const token = ctx.request.header.authorization;
+      const decode = app.jwt.verify(token, app.config.jwt.secret);
+      if (!decode) return;
+      const userInfo = await ctx.service.user.getUserInfo(decode.username);
+      if (userInfo && userInfo.id) {
+        const res = await ctx.service.user.editUserInfo({
+          ...userInfo,
+          signature,
+        });
+        if (res) {
+          ctx.body = {
+            code: 200,
+            msg: '修改成功',
+            data: null,
+          };
+        } else {
+          ctx.body = {
+            code: 500,
+            msg: '修改失败',
+            data: null,
+          };
+        }
+      }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        msg: '修改失败',
         data: null,
       };
     }

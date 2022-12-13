@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:55:55
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 11:11:22
+ * @LastEditTime: 2022-12-13 16:24:46
  * @FilePath: /ChargeAccount/app/service/user.js
  * @Description: user Service
  *
@@ -33,6 +33,18 @@ class UserService extends Service {
       return res;
     } catch (error) {
       console.log(error);
+      return null;
+    }
+  }
+
+  // 修改用户信息
+  async editUserInfo(params) {
+    const { app } = this;
+    try {
+      const res = await app.mysql.update('user', params, { id: params.id });
+      return res;
+    } catch (error) {
+      console.log('error', error);
       return null;
     }
   }
