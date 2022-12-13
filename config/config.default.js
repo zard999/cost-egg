@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-12 18:19:33
+ * @LastEditTime: 2022-12-13 11:06:08
  * @FilePath: /ChargeAccount/config/config.default.js
  * @Description: config配置文件
  *
@@ -36,7 +36,7 @@ module.exports = appInfo => {
       // 密码[]
       password: 'xue19991202',
       // 数据库名
-      database: 'test',
+      database: 'cost',
     },
     // 是否加载到 app 上，默认开启
     app: true,
