@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-12 16:06:40
+ * @LastEditTime: 2022-12-13 15:03:18
  * @FilePath: /ChargeAccount/config/plugin.js
  * @Description:
  *
@@ -23,5 +23,9 @@ module.exports = {
   mysql: {
     enable: true,
     package: 'egg-mysql',
+  },
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
   },
 };

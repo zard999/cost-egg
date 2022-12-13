@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 11:26:51
+ * @LastEditTime: 2022-12-13 15:13:23
  * @FilePath: /ChargeAccount/app/router.js
  * @Description:
  *
@@ -15,6 +15,6 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  // 注册
-  router.post('/api/user/register', controller.user.register);
+  router.post('/api/user/register', controller.user.register); // 注册
+  router.post('/api/user/login', controller.user.login); // 登录
 };

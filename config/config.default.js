@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 11:06:08
+ * @LastEditTime: 2022-12-13 15:03:59
  * @FilePath: /ChargeAccount/config/config.default.js
  * @Description: config配置文件
  *
@@ -42,6 +42,10 @@ module.exports = appInfo => {
     app: true,
     // 是否加载到 agent 上，默认关闭
     agent: false,
+  };
+
+  config.jwf = {
+    secret: 'Zyh',
   };
 
   // use for cookie sign key, should change to your own and keep security
