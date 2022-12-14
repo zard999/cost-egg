@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 16:34:26
+ * @LastEditTime: 2022-12-13 19:00:26
  * @FilePath: /ChargeAccount/app/controller/user.js
  * @Description: user Controller
  *
@@ -19,7 +19,7 @@ class UserController extends Controller {
   async register() {
     const { ctx } = this;
     const { username, password } = ctx.request.body;
-    console.log('username', username, password);
+    // console.log('username', username, password);
     if (!username || !password) {
       ctx.body = {
         code: 500,
@@ -29,7 +29,7 @@ class UserController extends Controller {
     }
     try {
       const userInfo = await ctx.service.user.getUserInfo(username); // 获取用户信息
-      console.log('userInfo', userInfo, userInfo.id);
+      // console.log('userInfo', userInfo, userInfo.id);
       if (userInfo && userInfo.id) {
         ctx.body = {
           code: 500,
