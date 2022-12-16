@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 16:01:52
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-12 16:20:26
+ * @LastEditTime: 2022-12-16 16:48:15
  * @FilePath: /ChargeAccount/app/service/home.js
  * @Description:
  *
@@ -43,11 +43,15 @@ class HomeService extends Service {
   async editUser(id, name) {
     const { app } = this;
     try {
-      const res = await app.mysql.update('list', { name }, {
-        where: {
-          id,
-        },
-      });
+      const res = await app.mysql.update(
+        'list',
+        { name },
+        {
+          where: {
+            id
+          }
+        }
+      );
       return res;
     } catch (error) {
       console.log(error);
@@ -59,7 +63,7 @@ class HomeService extends Service {
     const { app } = this;
     try {
       const res = await app.mysql.delete('list', {
-        id,
+        id
       });
       return res;
     } catch (error) {

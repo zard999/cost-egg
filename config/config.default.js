@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 17:29:37
+ * @LastEditTime: 2022-12-16 16:48:18
  * @FilePath: /ChargeAccount/config/config.default.js
  * @Description: config配置文件
  *
@@ -21,7 +21,7 @@ module.exports = appInfo => {
    * built-in config
    * @type {Egg.EggAppConfig}
    **/
-  const config = exports = {};
+  const config = (exports = {});
 
   // 添加mysql连接项
   config.mysql = {
@@ -36,27 +36,27 @@ module.exports = appInfo => {
       // 密码[]
       password: 'xue19991202',
       // 数据库名
-      database: 'cost',
+      database: 'cost'
     },
     // 是否加载到 app 上，默认开启
     app: true,
     // 是否加载到 agent 上，默认关闭
-    agent: false,
+    agent: false
   };
 
   config.jwf = {
-    secret: 'Zyh',
+    secret: 'Zyh'
   };
 
   config.cors = {
     origin: '*', // 允许所有跨域访问
     credentials: true, // 允许跨域携带cookie
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
   };
 
   // 设置文件模式 file 和 strem
   config.multipart = {
-    mode: 'file',
+    mode: 'file'
   };
 
   // use for cookie sign key, should change to your own and keep security
@@ -68,27 +68,27 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
-    uploadDir: 'app/public/upload',
+    uploadDir: 'app/public/upload'
   };
 
   // 配置白名单：解决安全威胁csrf的防范
   config.security = {
     csrf: {
       enable: false,
-      ignoreJSON: true,
+      ignoreJSON: true
     },
-    domainWhiteList: [ '*' ], // 配置白名单
+    domainWhiteList: ['*'] // 配置白名单
   };
 
   // 模版(将view文件夹下的.html后缀的文件识别为.ejs)
   config.view = {
     mapping: {
-      '.html': 'ejs', // 左边写成.html后缀，会自动渲染.html文件
-    },
+      '.html': 'ejs' // 左边写成.html后缀，会自动渲染.html文件
+    }
   };
 
   return {
     ...config,
-    ...userConfig,
+    ...userConfig
   };
 };

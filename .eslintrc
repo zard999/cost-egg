@@ -1,4 +1,4 @@
 {
-  "extends": "eslint-config-egg",
+  "extends": ["eslint-config-egg", "plugin:prettier/recommended"], // 添加 prettier 插件]
   "root": true
 }

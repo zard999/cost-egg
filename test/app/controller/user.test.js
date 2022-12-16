@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-13 11:20:56
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 19:11:44
+ * @LastEditTime: 2022-12-16 16:48:41
  * @FilePath: /ChargeAccount/test/app/controller/user.test.js
  * @Description: user测试用例
  *
@@ -30,24 +30,15 @@ describe('test/app/controller/user.test.js', () => {
   //   assert(res.body.code === 200);
   // });
   it('should POST /api/user/register 用户名重复', async () => {
-    const res = await app.httpRequest()
-      .post('/api/user/register')
-      .send(registerMock.userRepeat)
-      .expect(200);
+    const res = await app.httpRequest().post('/api/user/register').send(registerMock.userRepeat).expect(200);
     assert(res.body.code === 500);
   });
   it('should POST /api/user/register 用户名为空', async () => {
-    const res = await app.httpRequest()
-      .post('/api/user/register')
-      .send(registerMock.userNull)
-      .expect(200);
+    const res = await app.httpRequest().post('/api/user/register').send(registerMock.userNull).expect(200);
     assert(res.body.code === 500);
   });
   it('should POST /api/user/register 密码为空', async () => {
-    const res = await app.httpRequest()
-      .post('/api/user/register')
-      .send(registerMock.passNull)
-      .expect(200);
+    const res = await app.httpRequest().post('/api/user/register').send(registerMock.passNull).expect(200);
     assert(res.body.code === 500);
   });
 });

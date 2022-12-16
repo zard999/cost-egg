@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 19:00:26
+ * @LastEditTime: 2022-12-16 16:48:03
  * @FilePath: /ChargeAccount/app/controller/user.js
  * @Description: user Controller
  *
@@ -24,7 +24,7 @@ class UserController extends Controller {
       ctx.body = {
         code: 500,
         msg: '用户名或密码不能为空',
-        data: null,
+        data: null
       };
     }
     try {
@@ -34,7 +34,7 @@ class UserController extends Controller {
         ctx.body = {
           code: 500,
           msg: '用户名已存在，请重新注册',
-          data: null,
+          data: null
         };
         return;
       }
@@ -44,26 +44,26 @@ class UserController extends Controller {
         password,
         signature: '这个人很懒，什么都没有留下',
         avatar: defaultAvatar,
-        ctime: +new Date(),
+        ctime: +new Date()
       });
       if (res) {
         ctx.body = {
           code: 200,
           msg: '注册成功',
-          data: null,
+          data: null
         };
       } else {
         ctx.body = {
           code: 500,
           msg: '注册失败',
-          data: null,
+          data: null
         };
       }
     } catch (error) {
       ctx.body = {
         code: 500,
         msg: '注册失败',
-        data: null,
+        data: null
       };
     }
   }
@@ -77,7 +77,7 @@ class UserController extends Controller {
       ctx.body = {
         code: 500,
         msg: '用户名或密码不能为空',
-        data: null,
+        data: null
       };
       return;
     }
@@ -88,7 +88,7 @@ class UserController extends Controller {
         ctx.body = {
           code: 500,
           msg: '用户不存在，请先注册!!!',
-          data: null,
+          data: null
         };
         return;
       }
@@ -97,28 +97,31 @@ class UserController extends Controller {
         ctx.body = {
           code: 500,
           msg: '密码错误，请重新输入!!!',
-          data: null,
+          data: null
         };
         return;
       }
       // 3. 密码正确，生成token
-      const token = app.jwt.sign({
-        username,
-        id: userInfo.id,
-        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // token有效期为24小时
-      }, app.config.jwt.secret);
+      const token = app.jwt.sign(
+        {
+          username,
+          id: userInfo.id,
+          exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 // token有效期为24小时
+        },
+        app.config.jwt.secret
+      );
       ctx.body = {
         code: 200,
         msg: '登录成功',
         data: {
-          token,
-        },
+          token
+        }
       };
     } catch (error) {
       ctx.body = {
         code: 500,
         msg: '登录失败',
-        data: null,
+        data: null
       };
     }
   }
@@ -140,15 +143,15 @@ class UserController extends Controller {
             id: userInfo.id,
             username: userInfo.username,
             signature: userInfo.signature,
-            avatar: userInfo.avatar,
-          },
+            avatar: userInfo.avatar
+          }
         };
       }
     } catch (error) {
       ctx.body = {
         code: 500,
         msg: '获取用户信息失败',
-        data: null,
+        data: null
       };
     }
   }
@@ -165,19 +168,19 @@ class UserController extends Controller {
       if (userInfo && userInfo.id) {
         const res = await ctx.service.user.editUserInfo({
           ...userInfo,
-          signature,
+          signature
         });
         if (res) {
           ctx.body = {
             code: 200,
             msg: '修改成功',
-            data: null,
+            data: null
           };
         } else {
           ctx.body = {
             code: 500,
             msg: '修改失败',
-            data: null,
+            data: null
           };
         }
       }
@@ -185,7 +188,7 @@ class UserController extends Controller {
       ctx.body = {
         code: 500,
         msg: '修改失败',
-        data: null,
+        data: null
       };
     }
   }

@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-13 16:36:10
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 17:36:47
+ * @LastEditTime: 2022-12-16 16:47:58
  * @FilePath: /ChargeAccount/app/controller/upload.js
  * @Description: 上传图片
  *
@@ -41,13 +41,13 @@ class UploadController extends Controller {
       ctx.body = {
         code: 200,
         msg: '上传成功',
-        data: uploadDir.replace(/app/g, ''), // 替换app 前端访问时不需要app
+        data: uploadDir.replace(/app/g, '') // 替换app 前端访问时不需要app
       };
     } catch (error) {
       console.log('readFile error', error);
       ctx.body = {
         code: 500,
-        msg: '上传失败',
+        msg: '上传失败'
       };
     } finally {
       // 删除临时文件

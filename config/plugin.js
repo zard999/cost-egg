@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 17:06:33
+ * @LastEditTime: 2022-12-16 16:48:24
  * @FilePath: /ChargeAccount/config/plugin.js
  * @Description:
  *
@@ -18,18 +18,18 @@ module.exports = {
   // }
   ejs: {
     enable: true,
-    package: 'egg-view-ejs',
+    package: 'egg-view-ejs'
   },
   mysql: {
     enable: true,
-    package: 'egg-mysql',
+    package: 'egg-mysql'
   },
   jwt: {
     enable: true,
-    package: 'egg-jwt',
+    package: 'egg-jwt'
   },
   cors: {
     enable: true,
-    package: 'egg-cors',
-  },
+    package: 'egg-cors'
+  }
 };

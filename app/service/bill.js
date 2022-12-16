@@ -1,8 +1,8 @@
 /*
  * @Author: zyh
  * @Date: 2022-12-14 11:13:23
- * @LastEditors: zyh
- * @LastEditTime: 2022-12-15 18:32:06
+ * @LastEditors: zyh zhangyh@stpass.com
+ * @LastEditTime: 2022-12-16 15:39:55
  * @FilePath: /ChargeAccount/app/service/bill.js
  * @Description: bill Service
  *
@@ -11,8 +11,8 @@
 'use strict';
 
 const { Service } = require('egg');
-
 class BillService extends Service {
+  // 添加账单
   async addBill(params) {
     const { app } = this;
     try {
@@ -32,6 +32,20 @@ class BillService extends Service {
     try {
       const res = await app.mysql.query(sql);
       console.log('getBillList', res);
+      return res;
+    } catch (error) {
+      console.log('error', error);
+      return null;
+    }
+  }
+
+  // 获取账单详情
+  async getBillDetail(id) {
+    const { app } = this;
+    const QUERY_STR = 'id, payType, amount, typeName, typeId, date, remark';
+    const sql = `select ${QUERY_STR} from bill where id = ${id}`;
+    try {
+      const res = app.mysql.query(sql);
       return res;
     } catch (error) {
       console.log('error', error);

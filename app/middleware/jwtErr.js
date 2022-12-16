@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-13 15:28:12
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 15:44:26
+ * @LastEditTime: 2022-12-16 16:48:11
  * @FilePath: /ChargeAccount/app/middleware/jwtErr.js
  * @Description: token验证中间件
  *
@@ -28,7 +28,7 @@ module.exports = secret => {
         ctx.body = {
           code: 401,
           msg: '登录已过期，请重新登录',
-          data: null,
+          data: null
         };
       }
     } else {
@@ -36,7 +36,7 @@ module.exports = secret => {
       ctx.body = {
         code: 401,
         msg: 'token不存在',
-        data: null,
+        data: null
       };
     }
   };

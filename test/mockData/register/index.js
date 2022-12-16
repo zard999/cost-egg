@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-13 19:05:22
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-13 19:08:46
+ * @LastEditTime: 2022-12-16 16:48:48
  * @FilePath: /ChargeAccount/test/mockData/register/index.js
  * @Description:
  *
@@ -11,18 +11,18 @@
 module.exports = {
   new: {
     username: 'test',
-    password: '123456',
+    password: '123456'
   },
   userRepeat: {
     username: 'test',
-    password: '123456',
+    password: '123456'
   },
   userNull: {
     username: '',
-    password: '123456',
+    password: '123456'
   },
   passNull: {
     username: 'test',
-    password: '',
-  },
+    password: ''
+  }
 };
