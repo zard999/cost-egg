@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-16 16:40:55
+ * @LastEditTime: 2022-12-16 17:05:34
  * @FilePath: /ChargeAccount/app/router.js
  * @Description: 路由配置
  *
@@ -29,4 +29,5 @@ module.exports = app => {
   router.post('/api/bill/addBill', _jwt, controller.bill.addBill); // 添加账单
   router.get('/api/bill/getBillList', _jwt, controller.bill.getBillList); // 获取账单列表
   router.get('/api/bill/getBillDetail', _jwt, controller.bill.getBillDetail); // 获取账单详情
+  router.post('/api/bill/editBill', _jwt, controller.bill.editBill); // 修改账单
 };

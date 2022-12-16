@@ -1,8 +1,8 @@
 /*
  * @Author: zyh
  * @Date: 2022-12-14 11:13:23
- * @LastEditors: zyh zhangyh@stpass.com
- * @LastEditTime: 2022-12-16 15:39:55
+ * @LastEditors: zyh
+ * @LastEditTime: 2022-12-16 17:15:52
  * @FilePath: /ChargeAccount/app/service/bill.js
  * @Description: bill Service
  *
@@ -46,6 +46,18 @@ class BillService extends Service {
     const sql = `select ${QUERY_STR} from bill where id = ${id}`;
     try {
       const res = app.mysql.query(sql);
+      return res;
+    } catch (error) {
+      console.log('error', error);
+      return null;
+    }
+  }
+
+  // 编辑账单
+  async editBill(params) {
+    const { app } = this;
+    try {
+      const res = await app.mysql.update('bill', { ...params });
       return res;
     } catch (error) {
       console.log('error', error);

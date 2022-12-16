@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-14 11:06:18
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-16 16:36:27
+ * @LastEditTime: 2022-12-16 17:13:44
  * @FilePath: /ChargeAccount/app/controller/bill.js
  * @Description: bill Controller
  *
@@ -175,6 +175,47 @@ class BillController extends Controller {
           code: 200,
           msg: '请求成功',
           data: res
+        };
+      }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        msg: '系统错误',
+        data: null
+      };
+    }
+  }
+
+  // 编辑账单
+  async editBill() {
+    const { ctx, app } = this;
+    const { id, amount, typeId, typeName, payType, remark = '' } = ctx.request.body;
+    const token = ctx.request.headers.authorization;
+    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+    if (!decode) return; // 验证token失败
+    if (!id || !amount || !typeId || !typeName || !payType) {
+      ctx.body = {
+        code: 500,
+        msg: '参数错误',
+        data: null
+      };
+      return;
+    }
+    try {
+      const res = await ctx.service.bill.editBill({
+        id,
+        amount,
+        date: +new Date(),
+        typeId,
+        typeName,
+        payType,
+        remark
+      });
+      if (res) {
+        ctx.body = {
+          code: 200,
+          msg: '请求成功',
+          data: null
         };
       }
     } catch (error) {
