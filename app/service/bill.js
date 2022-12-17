@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-14 11:13:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-16 17:15:52
+ * @LastEditTime: 2022-12-16 17:21:11
  * @FilePath: /ChargeAccount/app/service/bill.js
  * @Description: bill Service
  *
@@ -58,6 +58,17 @@ class BillService extends Service {
     const { app } = this;
     try {
       const res = await app.mysql.update('bill', { ...params });
+      return res;
+    } catch (error) {
+      console.log('error', error);
+      return null;
+    }
+  }
+  // 删除账单
+  async deleteBill(id) {
+    const { app } = this;
+    try {
+      const res = await app.mysql.delete('bill', { id });
       return res;
     } catch (error) {
       console.log('error', error);

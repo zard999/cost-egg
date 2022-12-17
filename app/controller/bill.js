@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-14 11:06:18
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-16 17:13:44
+ * @LastEditTime: 2022-12-17 14:24:05
  * @FilePath: /ChargeAccount/app/controller/bill.js
  * @Description: bill Controller
  *
@@ -218,6 +218,126 @@ class BillController extends Controller {
           data: null
         };
       }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        msg: '系统错误',
+        data: null
+      };
+    }
+  }
+
+  // 删除账单
+  async deleteBill() {
+    const { ctx, app } = this;
+    const { id } = ctx.request.body;
+    const token = ctx.request.headers.authorization;
+    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+    if (!decode) return; // 验证token失败
+    if (!id) {
+      ctx.body = {
+        code: 500,
+        msg: '订单id不能为空',
+        data: null
+      };
+      return;
+    }
+    try {
+      const res = await ctx.service.bill.deleteBill(id);
+      if (res) {
+        ctx.body = {
+          code: 200,
+          msg: '请求成功',
+          data: null
+        };
+      }
+    } catch (error) {
+      console.log('error', error);
+      return null;
+    }
+  }
+
+  // {
+  //   totalData: [
+  //     {
+  //       number: 137.84, // 支出或收入数量
+  //       payType: 1, // 支出或消费类型值
+  //       typeId: 1, // 消费类型id
+  //       typeName: "餐饮" // 消费类型名称
+  //     }
+  //   ],
+  //   total_expense: 3123.54, // 总消费
+  //   total_income: 6555.80 // 总收入
+  // }
+  // 月账单统计（图表）
+  async getBillChart() {
+    const { ctx, app } = this;
+    const { date = moment().format('YYYY-MM') } = ctx.request.body;
+    const token = ctx.request.headers.authorization;
+    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+    if (!decode) return; // 验证token失败
+    try {
+      // 查询该用户所有账单数据
+      const res = await ctx.service.bill.getBillList(decode.id);
+      if (!res || !res.length) {
+        ctx.body = {
+          code: 200,
+          msg: '请求成功',
+          data: {
+            totalData: [], // 总数据
+            totalExpense: 0, // 总支出
+            totalIncome: 0 // 总收入
+          }
+        };
+        return;
+      }
+
+      // 获取该月份的账单数据
+      const monthBillList = res.filter(item => {
+        return moment(Number(item.date)).format('YYYY-MM') === date;
+      });
+
+      // 总支出
+      const totalExpense = monthBillList.reduce((prev, cur) => {
+        if (cur.payType === 1) {
+          prev += Number(cur.amount);
+        }
+        return prev;
+      }, 0);
+
+      // 总收入
+      const totalIncome = monthBillList.reduce((prev, cur) => {
+        if (cur.payType === 2) {
+          prev += Number(cur.amount);
+        }
+        return prev;
+      }, 0);
+
+      // 总的收支构成
+      const totalData = monthBillList.reduce((prev, cur) => {
+        const index = prev.findIndex(item => item.typeId === cur.typeId);
+        if (index > -1) {
+          prev[index].number += Number(cur.amount);
+        } else {
+          prev.push({
+            number: Number(cur.amount),
+            payType: cur.payType,
+            typeId: cur.typeId,
+            typeName: cur.typeName
+          });
+        }
+        return prev;
+      });
+
+      ctx.body = {
+        code: 200,
+        msg: '请求成功',
+        data: {
+          totalData: totalData || [],
+          totalExpense: Number(totalExpense.toFixed(2)),
+          totalIncome: Number(totalIncome.toFixed(2))
+        }
+      };
     } catch (error) {
       ctx.body = {
         code: 500,
