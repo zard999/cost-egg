@@ -2,8 +2,8 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-16 16:48:03
- * @FilePath: /ChargeAccount/app/controller/user.js
+ * @LastEditTime: 2023-02-07 21:30:53
+ * @FilePath: /ChargeAccountEggNode/app/controller/user.js
  * @Description: user Controller
  *
  * Copyright (c) 2022 by 穿越, All Rights Reserved.
@@ -114,7 +114,11 @@ class UserController extends Controller {
         code: 200,
         msg: '登录成功',
         data: {
-          token
+          token,
+          id: userInfo.id,
+          username: userInfo.username,
+          signature: userInfo.signature,
+          avatar: userInfo.avatar
         }
       };
     } catch (error) {
