@@ -41,3 +41,13 @@ services:
       MYSQL_PASSWORD: 'xue19991202'
     depends_on: # 依赖
       - mysql_charge_account # 依赖的容器
+  react-admin: # web
+    image: react-admin:v1 # 镜像名称
+    container_name: react-admin # 容器名称
+    ports:
+      - '80:80' # 端口映射 本地端口:容器端口
+    expose:
+      - '80' # 暴露端口
+    restart: always # 重启策略
+    depends_on: # 依赖
+      - server_charge_account # 依赖的容器

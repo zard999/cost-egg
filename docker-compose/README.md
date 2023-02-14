@@ -1,6 +1,30 @@
-### .keep
+## 流程
 
-- .keep 文件是为了占位
+1. 构建 mysql_charge_account
+
+```bash
+cd /deploy/mysql
+docker build -t mysql_charge_account:v1 .
+```
+
+2. 构建 server_charge_account
+
+```bash
+cd /
+docker build -t server_charge_account:v1 .
+```
+
+3. 构建 react_admin
+
+```bash
+  https://github.com/zard999/react-admin
+```
+
+4. 运行 docker-compose
+
+```bash
+docker-compose up -d
+```
 
 ```
 # 登录远端

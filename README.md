@@ -37,9 +37,9 @@ $ npm stop
 ### 连接 mysql8.0 以上报错
 
 ```mysql
-CREATE USER 'test2'@'%' IDENTIFIED WITH mysql_native_password BY '66668888';
+CREATE USER 'test'@'%' IDENTIFIED WITH mysql_native_password BY '111111';
 
-GRANT ALL PRIVILEGES ON *.* TO 'test2'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'test'@'%' WITH GRANT OPTION;
 
 FLUSH PRIVILEGES;
 ```
