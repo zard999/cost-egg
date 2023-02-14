@@ -2,8 +2,8 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2022-12-16 16:48:18
- * @FilePath: /ChargeAccount/config/config.default.js
+ * @LastEditTime: 2023-02-14 09:41:35
+ * @FilePath: /ChargeAccountEggNode/config/config.default.js
  * @Description: config配置文件
  *
  * Copyright (c) 2022 by 穿越, All Rights Reserved.
@@ -30,7 +30,7 @@ module.exports = appInfo => {
       // host
       host: '42.192.151.130',
       // 端口号
-      port: '3306',
+      port: '33060',
       // 用户名
       user: 'root',
       // 密码[]

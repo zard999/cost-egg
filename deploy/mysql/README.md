@@ -3,21 +3,7 @@
 - 备份数据库：mysqldump -u root -h 42.192.151.130 -p cost >~/Desktop/init.sql
 - 备份数据库中某个表：mysqldump -u root -h 42.192.151.130 -p cost user >~/Desktop/user.sql
 
-- 注意： /usr/local/docker/mysql/conf my.cnf 需要拷贝到这里
-
 ## 在宿主机上的这个目录执行相关 docker build 命令
-
-### before sql
-
-```
-CREATE DATABASE `pre_labels`;
-
-use `pre_labels`;
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
-```
 
 ### build
 
@@ -29,9 +15,21 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 <!-- 自定义mysql_charge_account, 完美使用 -->
 
-docker run --name=mysql_charge_account --env=MYSQL_ROOT_PASSWORD=xue19991202 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=GOSU_VERSION=1.12 --env=MYSQL_MAJOR=8.0 --env=MYSQL_VERSION=8.0.31-1debian10 -p 33060:3306 --expose=33060 --restart=no --detach=true mysql_charge_account:v1 mysqld
+docker run --name=mysql_charge_account --env=MYSQL_ROOT_PASSWORD=xue19991202 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbibin --env=GOSU_VERSION=1.12 --env=MYSQL_MAJOR=8.0 --env=MYSQL_VERSION=8.0.31-1debian10 --volume=/project/cost/mysql/log:/var/log/mysql --volume=/project/cost/mysql/data:/var/lib/mysql --volume=/project/cost/mysql/conf:/etc/mysql/conf.d -p 33060:3306 --expose=33060 --privileged=true --restart=no --detach=true mysql_charge_account:v1 mysqld
+
+- --privileged=true：容器数据卷模式开启
 
 > mac 需要加上--platform=linux/amd64
+> 挂载目录需要使用绝对路径
+> /project/cost/mysql 为自己创建的目录绝对路径；需要在创建/project/cost/mysql/conf/\*.cnf 文件，否则会报错，内容如下：port 修改了，33060:3306（后面的 3306 对应容器里面的也需要修改）
+
+```bash
+[mysqld]
+port=3306
+init-connect="SET collation_connection=utf8mb4_0900_ai_ci"
+init_connect="SET NAMES utf8mb4"
+skip-character-set-client-handshake
+```
 
 ## 检验是否成功
 
