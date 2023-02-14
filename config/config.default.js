@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-14 10:10:00
+ * @LastEditTime: 2023-02-14 11:16:15
  * @FilePath: /ChargeAccountEggNode/config/config.default.js
  * @Description: config配置文件
  *
@@ -28,15 +28,15 @@ module.exports = appInfo => {
     // 单数据库信息配置
     client: {
       // host
-      host: '42.192.151.130',
+      host: process.env.MYSQL_HOST,
       // 端口号
-      port: '33060',
+      port: process.env.MYSQL_PORT,
       // 用户名
-      user: 'test2',
+      user: process.env.MYSQL_USER,
       // 密码[]
-      password: 'xue19991202',
+      password: process.env.MYSQL_PASSWORD,
       // 数据库名
-      database: 'cost'
+      database: process.env.MYSQL_DATABASE
     },
     // 是否加载到 app 上，默认开启
     app: true,
