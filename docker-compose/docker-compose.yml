@@ -1,0 +1,28 @@
+version: '1'
+services:
+  mysql_charge_account: # mysql容器
+    image: mysql_charge_account:v1 # 镜像名称
+    container_name: mysql_charge_account # 容器名称
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci # 容器启动后默认执行的命令
+    restart: always # 重启策略
+    environment: # 环境变量
+      MYSQL_ROOT_PASSWORD: xue19991202 # root密码
+      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin # 环境变量
+      GOSU_VERSION: '1.12' # gosu版本
+      MYSQL_MAJOR: '8.0' # mysql版本
+      MYSQL_VERSION: '8.0.31-1debian10' # mysql版本
+    ports:
+      - '33060:3306' # 端口映射 本地端口:容器端口
+    #detach: true # 后台运行
+    expose:
+      - '33060' # 暴露端口
+    # networks:
+    #   - charge_account # 网络
+    volumes: # 挂载目录
+      - ./conf:/etc/mysql/conf.d # 配置文件挂载 本地目录:容器目录
+      - ./data:/var/lib/mysql # 数据文件挂载 本地目录:容器目录
+      - ./log:/var/log/mysql # 日志文件挂载 本地目录:容器目录
+      # - ./conf:/etc/mysql # 配置文件目录挂载 本地目录:容器目录
+      # - ./mysql.conf.d:/etc/mysql/mysql.conf.d # 配置文件挂载 本地目录:容器目录
+      # - /var/lib/mysql # 数据文件挂载
+    
