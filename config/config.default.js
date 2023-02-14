@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-14 09:41:35
+ * @LastEditTime: 2023-02-14 10:10:00
  * @FilePath: /ChargeAccountEggNode/config/config.default.js
  * @Description: config配置文件
  *
@@ -32,7 +32,7 @@ module.exports = appInfo => {
       // 端口号
       port: '33060',
       // 用户名
-      user: 'root',
+      user: 'test2',
       // 密码[]
       password: 'xue19991202',
       // 数据库名
