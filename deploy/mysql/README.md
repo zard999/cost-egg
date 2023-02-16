@@ -9,7 +9,7 @@
 
 - docker build -t mysql_charge_account:v1 .
 
-> m1 芯片命令：docker build --platform=linux/amd64 -t mysql_charge_account:v1 .
+> m1 芯片命令：docker buildx build -t mysql_charge_account:v1 --platform=linux/amd64 .
 
 ### run
 
