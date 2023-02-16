@@ -1,7 +1,7 @@
 version: '1'
 services:
   mysql_charge_account: # mysql容器
-    image: mysql_charge_account:v1 # 镜像名称
+    image: registry.cn-shenzhen.aliyuncs.com/zard999/mysql_charge_account # 镜像名称
     container_name: mysql_charge_account # 容器名称
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci # 容器启动后默认执行的命令
     restart: always # 重启策略
@@ -26,7 +26,7 @@ services:
       # - ./mysql.conf.d:/etc/mysql/mysql.conf.d # 配置文件挂载 本地目录:容器目录
       # - /var/lib/mysql # 数据文件挂载
   server_charge_account: # egg服务容器
-    image: server_charge_account:v1 # 镜像名称
+    image: registry.cn-shenzhen.aliyuncs.com/zard999/server_charge_account # 镜像名称
     container_name: server_charge_account # 容器名称
     ports:
       - '7001:7001' # 端口映射 本地端口:容器端口
@@ -42,7 +42,7 @@ services:
     depends_on: # 依赖
       - mysql_charge_account # 依赖的容器
   react-admin: # web
-    image: react-admin:v1 # 镜像名称
+    image: registry.cn-shenzhen.aliyuncs.com/zard999/react-admin # 镜像名称
     container_name: react-admin # 容器名称
     ports:
       - '80:80' # 端口映射 本地端口:容器端口
