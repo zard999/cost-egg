@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-07 21:30:53
+ * @LastEditTime: 2023-02-16 11:11:54
  * @FilePath: /ChargeAccountEggNode/app/controller/user.js
  * @Description: user Controller
  *
@@ -49,20 +49,20 @@ class UserController extends Controller {
       if (res) {
         ctx.body = {
           code: 200,
-          msg: '注册成功',
+          msg: '新增用户成功',
           data: null
         };
       } else {
         ctx.body = {
           code: 500,
-          msg: '注册失败',
+          msg: '新增用户失败',
           data: null
         };
       }
     } catch (error) {
       ctx.body = {
         code: 500,
-        msg: '注册失败',
+        msg: '新增用户失败',
         data: null
       };
     }
@@ -192,6 +192,27 @@ class UserController extends Controller {
       ctx.body = {
         code: 500,
         msg: '修改失败',
+        data: null
+      };
+    }
+  }
+
+  // 获取用户列表
+  async getUserList() {
+    const { ctx } = this;
+    const { current = 1, pageSize = 10 } = ctx.request.query;
+    console.log('getUserList', ctx.request.query);
+    try {
+      const res = await ctx.service.user.getUserList(current, pageSize);
+      ctx.body = {
+        code: 200,
+        msg: '请求成功',
+        data: res
+      };
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        msg: '获取用户列表失败',
         data: null
       };
     }
