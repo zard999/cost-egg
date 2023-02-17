@@ -8,4 +8,4 @@ FROM mysql:8.0.31
 # docker-entrypoint-initdb.d 不执行可能是由于有本地缓存
 WORKDIR /docker-entrypoint-initdb.d
 ENV LANG=C.UTF-8
-ADD init.sql .
+# ADD init.sql .
