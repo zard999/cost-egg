@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-16 11:11:54
+ * @LastEditTime: 2023-02-18 15:34:41
  * @FilePath: /ChargeAccountEggNode/app/controller/user.js
  * @Description: user Controller
  *
@@ -18,12 +18,19 @@ class UserController extends Controller {
   // 注册
   async register() {
     const { ctx } = this;
-    const { username, password } = ctx.request.body;
+    const { username, password, roleName } = ctx.request.body;
     // console.log('username', username, password);
     if (!username || !password) {
       ctx.body = {
         code: 500,
         msg: '用户名或密码不能为空',
+        data: null
+      };
+    }
+    if (!roleName) {
+      ctx.body = {
+        code: 500,
+        msg: '角色不能为空',
         data: null
       };
     }
@@ -46,7 +53,19 @@ class UserController extends Controller {
         avatar: defaultAvatar,
         ctime: +new Date()
       });
-      if (res) {
+      // 再次获取用户信息
+      const userInfo2 = await ctx.service.user.getUserInfo(username);
+      // 通过roleName查询roleId
+      const roleInfo = await ctx.service.role.getRoleInfo({ roleName });
+      // 向用户角色表中插入数据
+      const date = +new Date();
+      const res2 = await ctx.service.role.addUserRole({
+        user_id: userInfo2.id,
+        role_id: roleInfo.id,
+        created_at: date,
+        updated_at: date
+      });
+      if (res && res2) {
         ctx.body = {
           code: 200,
           msg: '新增用户成功',

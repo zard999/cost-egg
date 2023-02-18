@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 22:56:19
+ * @LastEditTime: 2023-02-18 19:04:52
  * @FilePath: /ChargeAccountEggNode/app/router.js
  * @Description: 路由配置
  *
@@ -26,6 +26,8 @@ module.exports = app => {
   // role
   router.post('/api/role/addRole', _jwt, controller.role.addRole); // 添加角色
   router.get('/api/role/getRoleList', _jwt, controller.role.getRoleList); // 获取角色列表
+  router.get('/api/role/getRolePermissions', _jwt, controller.role.getRolePermissions); // 获取用户对应的权限列表
+  router.post('/api/role/editRoleInfo', _jwt, controller.role.editRoleInfo); // 修改角色信息
 
   // upload
   router.post('/api/upload', _jwt, controller.upload.upload); // 上传图片
