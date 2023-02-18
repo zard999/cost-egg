@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-17 14:59:11
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 18:03:32
+ * @LastEditTime: 2023-02-17 23:25:52
  * @FilePath: /ChargeAccountEggNode/app/controller/role.js
  * @Description: 角色管理
  *
@@ -27,11 +27,13 @@ class RoleController extends Controller {
     const decode = await app.jwt.verify(token, app.config.jwt.secret);
     if (!decode) return; // 验证token失败
     try {
+      const date = +new Date();
       const res = await ctx.service.role.addRole({
         roleName,
         description,
         permissions: JSON.stringify(permissions),
-        ctime: +new Date()
+        created_at: date,
+        updated_at: date
       });
       if (res) {
         ctx.body = {
@@ -59,7 +61,7 @@ class RoleController extends Controller {
   // 获取角色列表
   async getRoleList() {
     const { ctx } = this;
-    const { current = 1, pageSize = 10 } = ctx.request.query;
+    const { current, pageSize } = ctx.request.query;
     console.log('getRoleList', ctx.request.query);
     try {
       const res = await ctx.service.role.getRoleList(current, pageSize);

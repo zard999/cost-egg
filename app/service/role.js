@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-17 15:09:36
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 18:05:46
+ * @LastEditTime: 2023-02-17 23:28:42
  * @FilePath: /ChargeAccountEggNode/app/service/role.js
  * @Description: 角色服务
  *
@@ -28,11 +28,17 @@ class RoleService extends Service {
     const { app } = this;
     console.log('page', current, pageSize);
     try {
+      // * 判断是否分页
+      if (!current || !pageSize) {
+        const res = await app.mysql.select('role', {
+          columns: ['id', 'roleName'] // 过滤表头
+        });
+        return res;
+      }
       const res = await app.mysql.select('role', {
         // where: {
         //   username: ['like', `%${username}%`]
         // },
-        columns: ['id', 'roleName', 'description', 'ctime'], // 过滤表头
         // 分页
         limit: Number(pageSize),
         offset: (current - 1) * pageSize
