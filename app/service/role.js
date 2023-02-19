@@ -2,13 +2,14 @@
  * @Author: zyh
  * @Date: 2023-02-17 15:09:36
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 21:58:42
+ * @LastEditTime: 2023-02-19 22:44:08
  * @FilePath: /ChargeAccountEggNode/app/service/role.js
  * @Description: 角色服务
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
 const { Service } = require('egg');
+const { objArrChangeString } = require('../extend/helper');
 
 class RoleService extends Service {
   // 添加角色
@@ -137,19 +138,15 @@ class RoleService extends Service {
   async getRoleInfoByUserId(user_id) {
     const { app } = this;
     try {
-      // const res = await app.mysql.select('user_roles', {
-      //   where: {
-      //     user_id
-      //   }
-      // });
       const res = await app.mysql.query('select * from user_roles where user_id = ?', [user_id]);
       // 通过返回的role_id数组查询角色信息
-      const res2 = res.reduce((pre, cur, index) => {
-        if (index === res.length - 1) {
-          return pre + cur.role_id;
-        }
-        return pre + cur.role_id + ',';
-      }, '');
+      const res2 = objArrChangeString(res, 'role_id');
+      // res.reduce((pre, cur, index) => {
+      //   if (index === res.length - 1) {
+      //     return pre + cur.role_id;
+      //   }
+      //   return pre + cur.role_id + ',';
+      // }, '');
       const roleInfo = await app.mysql.query(`select * from role where id in (${res2})`);
       console.log('getRoleInfoByUserId', res2, roleInfo);
       return roleInfo.map(item => item.roleName);

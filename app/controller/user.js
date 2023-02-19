@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 21:36:05
+ * @LastEditTime: 2023-02-19 22:20:18
  * @FilePath: /ChargeAccountEggNode/app/controller/user.js
  * @Description: user Controller
  *
@@ -183,30 +183,37 @@ class UserController extends Controller {
   // 修改用户信息
   async editUserInfo() {
     const { ctx, app } = this;
-    const { signature = '' } = ctx.request.body;
+    const { username, password, roleName, id } = ctx.request.body;
+    if (!username || !password || !roleName) {
+      ctx.body = {
+        code: 500,
+        msg: '参数不能为空',
+        data: null
+      };
+      return;
+    }
     try {
       const token = ctx.request.header.authorization;
       const decode = app.jwt.verify(token, app.config.jwt.secret);
       if (!decode) return;
-      const userInfo = await ctx.service.user.getUserInfo(decode.username);
-      if (userInfo && userInfo.id) {
-        const res = await ctx.service.user.editUserInfo({
-          ...userInfo,
-          signature
-        });
-        if (res) {
-          ctx.body = {
-            code: 200,
-            msg: '修改成功',
-            data: null
-          };
-        } else {
-          ctx.body = {
-            code: 500,
-            msg: '修改失败',
-            data: null
-          };
-        }
+      const res = await ctx.service.user.editUserInfo({
+        username,
+        password,
+        roleName,
+        id
+      });
+      if (res) {
+        ctx.body = {
+          code: 200,
+          msg: '修改成功',
+          data: null
+        };
+      } else {
+        ctx.body = {
+          code: 500,
+          msg: '修改失败',
+          data: null
+        };
       }
     } catch (error) {
       ctx.body = {
