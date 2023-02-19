@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-17 15:09:36
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 19:04:21
+ * @LastEditTime: 2023-02-19 21:58:42
  * @FilePath: /ChargeAccountEggNode/app/service/role.js
  * @Description: 角色服务
  *
@@ -26,8 +26,19 @@ class RoleService extends Service {
   // 向用户角色表中添加数据
   async addUserRole(params) {
     const { app } = this;
+    let res = null;
     try {
-      const res = await app.mysql.insert('user_roles', params);
+      // 向user_roles表中插入多条数据
+      if (params.role_id.length > 1) {
+        params.role_id.forEach(async item => {
+          res = await app.mysql.insert('user_roles', {
+            ...params,
+            role_id: item
+          });
+        });
+      } else {
+        res = await app.mysql.insert('user_roles', params);
+      }
       return res;
     } catch (error) {
       console.log('error', error);
@@ -69,11 +80,17 @@ class RoleService extends Service {
   }
 
   // 查询角色信息
-  async getRoleInfo(params) {
+  async getRoleInfo(roleName) {
     const { app } = this;
+    console.log('isArray', Array.isArray(roleName));
     try {
-      const res = await app.mysql.get('role', params);
-      console.log('getRoleInfo', res, params);
+      // 查询role表中roleName为超级管理员和测试的角色数据
+      const res = await app.mysql.select('role', {
+        where: {
+          roleName
+        }
+      });
+      console.log('getRoleInfo', res);
       return res;
     } catch (error) {
       console.log(error);
@@ -110,6 +127,32 @@ class RoleService extends Service {
     try {
       const res = await app.mysql.update('role', params);
       return res;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  // 根据用户id查询当前用户绑定的角色
+  async getRoleInfoByUserId(user_id) {
+    const { app } = this;
+    try {
+      // const res = await app.mysql.select('user_roles', {
+      //   where: {
+      //     user_id
+      //   }
+      // });
+      const res = await app.mysql.query('select * from user_roles where user_id = ?', [user_id]);
+      // 通过返回的role_id数组查询角色信息
+      const res2 = res.reduce((pre, cur, index) => {
+        if (index === res.length - 1) {
+          return pre + cur.role_id;
+        }
+        return pre + cur.role_id + ',';
+      }, '');
+      const roleInfo = await app.mysql.query(`select * from role where id in (${res2})`);
+      console.log('getRoleInfoByUserId', res2, roleInfo);
+      return roleInfo.map(item => item.roleName);
     } catch (error) {
       console.log(error);
       return null;

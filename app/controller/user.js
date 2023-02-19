@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 15:34:41
+ * @LastEditTime: 2023-02-19 21:36:05
  * @FilePath: /ChargeAccountEggNode/app/controller/user.js
  * @Description: user Controller
  *
@@ -19,7 +19,7 @@ class UserController extends Controller {
   async register() {
     const { ctx } = this;
     const { username, password, roleName } = ctx.request.body;
-    // console.log('username', username, password);
+    console.log('username', username, password, roleName);
     if (!username || !password) {
       ctx.body = {
         code: 500,
@@ -56,16 +56,16 @@ class UserController extends Controller {
       // 再次获取用户信息
       const userInfo2 = await ctx.service.user.getUserInfo(username);
       // 通过roleName查询roleId
-      const roleInfo = await ctx.service.role.getRoleInfo({ roleName });
+      const roleInfo = await ctx.service.role.getRoleInfo(roleName);
       // 向用户角色表中插入数据
       const date = +new Date();
-      const res2 = await ctx.service.role.addUserRole({
+      await ctx.service.role.addUserRole({
         user_id: userInfo2.id,
-        role_id: roleInfo.id,
+        role_id: roleInfo.map(item => item.id),
         created_at: date,
         updated_at: date
       });
-      if (res && res2) {
+      if (res) {
         ctx.body = {
           code: 200,
           msg: '新增用户成功',
@@ -79,6 +79,7 @@ class UserController extends Controller {
         };
       }
     } catch (error) {
+      console.log('error', error);
       ctx.body = {
         code: 500,
         msg: '新增用户失败',
@@ -223,6 +224,26 @@ class UserController extends Controller {
     console.log('getUserList', ctx.request.query);
     try {
       const res = await ctx.service.user.getUserList(current, pageSize);
+      ctx.body = {
+        code: 200,
+        msg: '请求成功',
+        data: res
+      };
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        msg: '获取用户列表失败',
+        data: null
+      };
+    }
+  }
+
+  // 根据用户id查询当前用户绑定的角色
+  async getRoleInfoByUserId() {
+    const { ctx } = this;
+    const { id } = ctx.request.query;
+    try {
+      const res = await ctx.service.role.getRoleInfoByUserId(id);
       ctx.body = {
         code: 200,
         msg: '请求成功',

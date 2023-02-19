@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-07 15:20:23
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 19:04:52
+ * @LastEditTime: 2023-02-19 21:38:14
  * @FilePath: /ChargeAccountEggNode/app/router.js
  * @Description: 路由配置
  *
@@ -22,6 +22,7 @@ module.exports = app => {
   router.get('/api/user/getUserInfo', _jwt, controller.user.getUserInfo); // 获取用户信息 把jwt放入第二个参数，作为中间件
   router.post('/api/user/editUserInfo', _jwt, controller.user.editUserInfo); // 修改用户信息
   router.get('/api/user/getUserList', _jwt, controller.user.getUserList); // 获取用户列表
+  router.get('/api/user/getRoleInfoByUserId', _jwt, controller.user.getRoleInfoByUserId); // 根据用户id查询当前用户绑定的角色
 
   // role
   router.post('/api/role/addRole', _jwt, controller.role.addRole); // 添加角色
