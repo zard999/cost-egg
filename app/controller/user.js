@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2022-12-12 18:52:44
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 22:20:18
+ * @LastEditTime: 2023-02-20 09:47:35
  * @FilePath: /ChargeAccountEggNode/app/controller/user.js
  * @Description: user Controller
  *
@@ -254,7 +254,7 @@ class UserController extends Controller {
       ctx.body = {
         code: 200,
         msg: '请求成功',
-        data: res
+        data: res ? res : ''
       };
     } catch (error) {
       ctx.body = {

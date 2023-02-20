@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-17 15:09:36
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 22:44:08
+ * @LastEditTime: 2023-02-20 10:10:47
  * @FilePath: /ChargeAccountEggNode/app/service/role.js
  * @Description: 角色服务
  *
@@ -141,15 +141,12 @@ class RoleService extends Service {
       const res = await app.mysql.query('select * from user_roles where user_id = ?', [user_id]);
       // 通过返回的role_id数组查询角色信息
       const res2 = objArrChangeString(res, 'role_id');
-      // res.reduce((pre, cur, index) => {
-      //   if (index === res.length - 1) {
-      //     return pre + cur.role_id;
-      //   }
-      //   return pre + cur.role_id + ',';
-      // }, '');
-      const roleInfo = await app.mysql.query(`select * from role where id in (${res2})`);
-      console.log('getRoleInfoByUserId', res2, roleInfo);
-      return roleInfo.map(item => item.roleName);
+      // 如果没有查询到绑定的角色则返回空数组
+      if (res2) {
+        const roleInfo = await app.mysql.query(`select * from role where id in (${res2})`);
+        return roleInfo.map(item => item.roleName);
+      }
+      return [];
     } catch (error) {
       console.log(error);
       return null;
