@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-17 15:09:36
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-20 10:10:47
+ * @LastEditTime: 2023-02-20 23:30:16
  * @FilePath: /ChargeAccountEggNode/app/service/role.js
  * @Description: 角色服务
  *
@@ -104,17 +104,16 @@ class RoleService extends Service {
     const { app } = this;
     try {
       // 通过用户id获取角色id
-      const userRolesInfo = await app.mysql.get('user_roles', {
-        user_id
-      });
-      if (!userRolesInfo) return { permissions: [] };
+      const roleIds = await app.mysql.query('select role_id from user_roles where user_id = ?', [user_id]);
+      console.log('userRolesInfo', roleIds);
+      if (!roleIds) return { permissions: [] };
       // 通过角色id查询角色权限
-      const roleInfo = await app.mysql.get('role', {
-        id: userRolesInfo.role_id
-      });
-      console.log('getRolePermissions', roleInfo);
+      const permissions = await app.mysql.query(
+        `select permissions from role where id in (${roleIds.map(item => item.role_id)})`
+      );
+      // 合并permissions数组并去重
       return {
-        permissions: JSON.parse(roleInfo.permissions)
+        permissions: [...new Set(permissions.reduce((prev, next) => prev.concat(JSON.parse(next.permissions)), []))]
       };
     } catch (error) {
       console.log(error);
